@@ -136,7 +136,11 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+  select company_name, count(*) order_count
+  from orders o join customers c
+  on o.customer_id = c.customer_id
+  group by c.company_name
+  order by c.company_name
 ```
 
 * [ ] ***list customers by contact name and the number of orders per contact name. Sort the list by the number of orders in descending order. _Jose Pavarotti_ should be at the top with 31 orders followed by _Roland Mendal_ with 30 orders. Last should be _Francisco Chang_ with 1 order***
@@ -147,7 +151,11 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+  select c.contact_name, c.phone, count(*) customer_orders
+  from orders o join customers c
+  on o.customer_id = c.customer_id
+  group by c.contact_name, c.phone
+  order by customer_orders desc
 ```
 
 * [ ] ***list orders grouped by customer's city showing the number of orders per city. Returns 69 Records with _Aachen_ showing 6 orders and _Albuquerque_ showing 18 orders***
@@ -158,7 +166,10 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+  select c.city, count(*) customer_orders
+  from orders o join customers c
+  on o.customer_id = c.customer_id
+  group by c.city
 ```
 
 ## Data Normalization
